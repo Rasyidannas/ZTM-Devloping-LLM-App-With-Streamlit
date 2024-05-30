@@ -98,3 +98,13 @@ if __name__ == '__main__':
                 # saving the vector store in the streamlit session state (to be persistent between reruns)
                 st.session_state.vs = vector_store
                 st.success('File uploaded, chunked and embedded successfully.')
+
+    # user's question text input widget
+    q = st.text_input('Ask a question about the content of your file:')
+    if q: # if the user entered a question and hit enter
+        if 'vs' in st.session_state:
+            vector_store = st.session_state.vs
+            st.write(f'k: {k}')
+            answer = ask_and_get_answer(vector_store, q, k=k)
+            st.text_area('LLM Answer: ', value=answer)
+            
